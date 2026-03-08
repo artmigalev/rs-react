@@ -24,15 +24,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     /* Aliases */
-    "baseUrl": "."
-    // "paths": {
-    //   "@/*": ["src/*"],
-    //   "@components/*": ["src/app/components/*"],
-    //   "@utils/*": ["src/app/utils/*"],
-    //   "@pages/*": ["src/pages/*"],
-    //   "@assets/*": ["src/assets/*"],
-    //   "@assets": ["src/assets/index.ts"]
-    // }
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/app/components/*"],
+      "@layout/*": ["src/layout/*"],
+      "@pages/*": ["src/layout/pages/*"],
+      "@assets/*": ["src/assets/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "public", "dist"]

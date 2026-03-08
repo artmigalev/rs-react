@@ -1,0 +1,16 @@
+.section-search {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--secondary);
+  border: var(--border-custom);
+  border-color: var(--primary);
+  border-radius: var(--border-radius);
+}
+
+.field-input {
+  border: var(--border-custom);
+  border-radius: var(--border-radius);
+}
+input {
+  border-radius: var(--border-radius);
+}
