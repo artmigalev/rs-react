@@ -1,20 +1,46 @@
 import Result from '@/components/resault/Result';
-import Search, { type State } from '@/components/search/Search';
+import Search from '@/components/search/Search';
 import React from 'react';
 import styles from './home.module.css';
+import { ReceiveService } from '@/api/services/receive.service';
+import type { IPeople } from '@/types/people.interface';
+
+type State = {
+  value: string;
+  results: IPeople[];
+};
 
 export class Home extends React.Component<Record<string, never>, State> {
+  #receiveService: ReceiveService;
+
   constructor(props: Record<string, never>) {
     super(props);
+    this.#receiveService = ReceiveService.getInstance();
     this.state = {
       value: localStorage.getItem('searchValue') || '',
+      results: this.#receiveService.getResults() || [],
     };
+  }
+
+  componentDidUpdate(prevProps: Readonly<Record<string, never>>, prevState: Readonly<State>): void {
+    if (prevProps) {
+      if (prevState.value !== this.state.value) {
+        const newResult = this.#receiveService.getPeopleBySearchValue(this.state.value);
+        this.setState((state) => ({
+          ...state,
+          results: newResult,
+        }));
+      }
+    }
   }
 
   componentDidMount(): void {
     const searchValue = localStorage.getItem('searchValue');
     if (searchValue) {
-      this.setState({ value: searchValue });
+      this.setState({
+        value: searchValue,
+        results: this.#receiveService.getPeopleBySearchValue(searchValue),
+      });
     }
   }
   changedStorage(v: string) {
@@ -31,7 +57,7 @@ export class Home extends React.Component<Record<string, never>, State> {
               this.changedStorage(v);
             }}
           />
-          <Result />
+          <Result results={this.state.results || []} />
         </div>
       </div>
     );

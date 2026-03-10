@@ -1,33 +1,42 @@
-import type { ICard } from '@/types/card.interface';
+import styles from './CardList.module.css';
+
 import React, { Component } from 'react';
 import Card from '../card/Card';
+import type { IPeople } from '@/types/people.interface';
+import CardsService from '@/api/services/cards.service';
 
 type ListState = {
-  cards: ICard[];
+  people: IPeople[];
 };
 type Props = {
-  dataCards: ICard[];
+  dataCards: IPeople[];
 };
 
 export class CardList extends Component<Props, ListState> {
+  #cardService: CardsService;
+
   constructor(props: Props) {
     super(props);
-
-    this.state = { cards: props.dataCards };
+    this.#cardService = new CardsService();
+    this.state = { people: props.dataCards };
   }
 
   render() {
-    const cards = this.state.cards;
-    console.log(cards);
+    const people = this.state.people;
+    console.log(people);
 
     return (
-      <ul>
-        {cards.length > 0 ? (
-          cards.map((card) => (
-            <li key={card.name}>
-              <Card {...card} />
-            </li>
-          ))
+      <ul className={styles['list-cards']}>
+        {people.length > 0 ? (
+          people.map((human: IPeople) => {
+            const card = this.#cardService.getDefaultCard(human);
+
+            return (
+              <li key={card.name}>
+                <Card {...card} />
+              </li>
+            );
+          })
         ) : (
           <span>cards not found bi list</span>
         )}

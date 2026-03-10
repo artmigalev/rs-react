@@ -1,10 +1,33 @@
+import type { IPeople, ResponsePeople } from '@/types/people.interface';
+
 export class ReceiveService {
   #people: string = 'https://swapi.dev/api/people/';
+  #data: ResponsePeople | null = null;
 
   static #instance: ReceiveService;
 
-  private constructor() {
-    ReceiveService.#instance = new ReceiveService();
+  private constructor() {}
+
+  async init() {
+    const response = await this.getPeopleAll<ResponsePeople>();
+    this.#data = response;
+  }
+
+  getResults(): IPeople[] | null {
+    if (this.#data) {
+      return this.#data?.results;
+    }
+    return null;
+  }
+
+  getPeopleBySearchValue(value: string): IPeople[] | [] {
+    const results = this.#data?.results;
+    if (results) {
+      return results.filter((item: IPeople) =>
+        item.name.toLowerCase().includes(value.toLowerCase())
+      );
+    }
+    return [];
   }
 
   static getInstance() {

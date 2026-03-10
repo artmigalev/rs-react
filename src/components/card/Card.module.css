@@ -3,4 +3,9 @@
   border: var(--border-custom);
   border-color: var(--primary);
   border-radius: var(--border-radius);
+  width: 248px;
+  height: 190px;
+}
+.title {
+  color: var(--primary);
 }

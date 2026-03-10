@@ -18,7 +18,7 @@ export class Search extends Component<Props, State> {
   render = () => {
     return (
       <section className={styles['section-search']}>
-        <form action="" method="get">
+        <form>
           <div className={styles['field-input']}>
             <input
               type="text"
