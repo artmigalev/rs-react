@@ -3,6 +3,7 @@ import styles from './Result.module.css';
 import CardList from '../card-list/CardList';
 import type { IPeople, ResponsePeople } from '@/types/people.interface';
 import Loader from '../loader/Loader';
+import ErrorBtn from '../error-handling/error-btn/ErrorBtn';
 
 type PropsResult = {
   results: ResponsePeople['results'];
@@ -50,6 +51,7 @@ export class Result extends Component<PropsResult, State> {
           ) : (
             <CardList dataCards={this.state.people} />
           )}
+          <ErrorBtn />
         </section>
       );
     }

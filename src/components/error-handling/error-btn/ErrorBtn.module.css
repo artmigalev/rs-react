@@ -1,0 +1,16 @@
+.btn-test-error {
+  max-width: max-content;
+  width: 100%;
+  height: 40px;
+  padding: var(--padding-small);
+  border-radius: var(--border-radius);
+  border: var(--border-custom);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-test-error:active {
+  background: var(--background);
+}

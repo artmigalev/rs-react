@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './home.module.css';
 import { ReceiveService } from '@/api/services/receive.service';
 import type { IPeople } from '@/types/people.interface';
+import ErrorHandling from '@/components/error-handling/ErrorHandling';
 
 type State = {
   value: string;
@@ -55,13 +56,15 @@ export class Home extends React.Component<Record<string, never>, State> {
     return (
       <div className={styles.home}>
         <div className={styles.wrapper}>
-          <Search
-            value={this.state.value}
-            onChange={(v: string) => {
-              this.changedStorage(v);
-            }}
-          />
-          <Result results={this.state.results || []} />
+          <ErrorHandling>
+            <Search
+              value={this.state.value}
+              onChange={(v: string) => {
+                this.changedStorage(v);
+              }}
+            />
+            <Result results={this.state.results || []} />
+          </ErrorHandling>
         </div>
       </div>
     );
