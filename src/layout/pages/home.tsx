@@ -48,7 +48,7 @@ export class Home extends React.Component<Record<string, never>, State> {
     }
   }
   changedStorage(v: string) {
-    this.setState({ value: v });
+    this.setState({ value: v.trim() });
     localStorage.setItem('searchValue', v);
   }
   render(): React.ReactNode {
