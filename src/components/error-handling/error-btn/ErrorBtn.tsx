@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import styles from './ErrorBtn.module.css';
 export class ErrorBtn extends Component {
   state: Readonly<{ hasError: boolean }> = { hasError: false };
