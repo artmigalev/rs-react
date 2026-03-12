@@ -14,8 +14,11 @@ export class Home extends React.Component<Record<string, never>, State> {
   #receiveService: ReceiveService;
 
   constructor(props: Record<string, never>) {
+    console.log('constructor');
+
     super(props);
     this.#receiveService = ReceiveService.getInstance();
+
     this.state = {
       value: localStorage.getItem('searchValue') || '',
       results: this.#receiveService.getResults() || [],
@@ -35,6 +38,7 @@ export class Home extends React.Component<Record<string, never>, State> {
   }
 
   componentDidMount(): void {
+    console.log('componentDidMount');
     const searchValue = localStorage.getItem('searchValue');
     if (searchValue) {
       this.setState({

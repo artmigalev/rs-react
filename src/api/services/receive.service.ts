@@ -20,14 +20,14 @@ export class ReceiveService {
     return null;
   }
 
-  getPeopleBySearchValue(value: string): IPeople[] | [] {
+  getPeopleBySearchValue(value: string): IPeople[] {
     const results = this.#data?.results;
     if (results) {
       return results.filter((item: IPeople) =>
         item.name.toLowerCase().includes(value.toLowerCase())
       );
     }
-    return [];
+    return this.getResults() || [];
   }
 
   static getInstance() {
