@@ -1,9 +1,9 @@
 {
-  "name": "rs-react",
+  "name": "star-wars-search",
   "private": false,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://artmigalev.github.io/rs-react/",
+  "homepage": "https://artmigalev.github.io/star-wars-search/",
   "scripts": {
     "start": "vite",
     "deploy": "pnpm run build && gh-pages -d dist",

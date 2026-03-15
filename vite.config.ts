@@ -7,7 +7,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/rs-react/',
+  base: '/star-wars-search/',
   plugins: [
     tsconfigPaths(),
     react({

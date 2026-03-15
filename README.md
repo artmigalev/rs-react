@@ -1,52 +1,236 @@
-# React + TypeScript + Vite
+# React Class Components App (Star Wars Search)
 
+A small web application built with React + TypeScript that allows users to search characters from the Star Wars universe using the SWAPI API.
 This App RESTfull api which supports search and pagination for Star Wars fans <https://swapi.dev/api>
 
-**Used class components to get access to lifecycle events or state. Using hooks is forbidden at this stage.**
+**The project demonstrates how to build an application using React class components, including lifecycle methods, state management, and error boundaries.**
 
-# Class components. Error boundary
+## Demo
 
-## Functional Requirements :
+Live Demo:
+[Star Wars Search](https://artmigalev.github.io/star-wars-search/).
 
-1. **Application Layout Structure**:
-2. **Page Layout Organization**,
+## Tech Stack
 
-- The page contains exactly two main sections: a search area and a results area.
-- Both sections are visually distinct and clearly separated by layout or styling (e.g., spacing, borders, or background).
+- React
 
-3. **Search Functionality with Local Storage**:
-   - Initial Search Component Load:
-     - When the application loads, the search component checks local storage for a previously saved search term
-4. **Search Results Display**:
-   - Search results are displayed in the results section after a search is performed.
-   - Each result item includes at least the following fields:
-     - Name
-     - Description
-   - Results are presented in a clear and readable format (consistent spacing, alignment, and typography).
-5. **Initial Data Load** :
-   - Default Data Load:
-     - On initial load, the application **sends a data request** according to the defined logic:
-     - If a search term exists in the input, the request includes that term.
-     - If no search term exists, the request retrieves all available items.
-     - The items **returned by the request** are correctly **displayed** in the results section.
-     - The displayed items **match the query** used in the request.
-6. **Search Execution**:
-   - When the **Search** button is clicked, if the input text hasn’t changed, **no new request** is made.
-   - **Extra spaces** at the start or end of the search text are **removed**.
-   - The app sends a **request for the first page** of results only.
-   - The **search term** is included in the request.
-   - The **results area** shows the items from the server response.
-7. **Search Term Persistence**:
-   - If the search text **has not changed**, nothing happens.
-   - If the text **has changed**, the **trimmed value** (without extra spaces) is **saved to local storage**, replacing the previous one.
-8. **Loading State Indication**:
-   - A **loading indicator** (e.g., spinner, skeleton, or loading bar) appears **while data is being loaded**.
-   - The indicator **remains visible** until the data is fully received and displayed.
-   - Once loading is complete, the **indicator is hidden**.
-9. **Error Handling**:
-   - A **clear, human-readable error message** is shown to the user when the server returns an error (4xx or 5xx).
-   - The **console remains clean** — no uncaught errors or unnecessary error logs are displayed.
-10. **Application Error Boundary**:
-    - A **test button** is available to simulate an application error.
-    - Clicking the test button **triggers an error** that is **logged in the console**.
-    - A **fallback UI** is displayed when an error occurs.
+- TypeScript
+
+- Vite
+
+- Vitest
+
+- Testing Library
+
+- TailwindCSS
+
+- SWAPI REST API
+
+## Project Goals
+
+**The goal of this project is to practice:**
+
+- React class components
+
+- React lifecycle methods
+
+- Error Boundary implementation
+
+- API requests
+
+- LocalStorage persistence
+
+- Loading states
+
+- Error handling
+
+Hooks are not used in this project according to the assignment requirements.
+
+## Functional Requirements
+
+1. **Application Layout Structure**
+
+The page contains two main sections:
+
+- Search section (top)
+
+- Results section (bottom)
+
+Both sections are visually separated using layout styling.
+
+---
+
+2. **Search Functionality with Local Storage**
+
+When the application loads:
+
+The app checks localStorage for the last search term.
+
+If a term exists, it is automatically displayed in the search input.
+
+If no term exists, the input remains empty.
+
+---
+
+3. **Search Results Display**
+
+Search results are displayed as a list of cards.
+
+Each result contains:
+
+- Character Name
+
+- Character Description
+
+The results are presented in a clear and readable layout.
+
+---
+
+4. **Initial Data Load**
+
+When the application starts:
+
+- If a search term exists → the request is made using that term.
+
+- If no search term exists → the first page of items is fetched.
+
+Returned items are displayed in the results section.
+
+---
+
+5. **Search Execution**
+
+When the Search button is clicked:
+
+- Leading and trailing spaces are removed from the input
+
+- If the search term has not changed, no new request is sent
+
+- Otherwise:
+  - The first page of results is requested
+
+  - Results are updated in the UI
+
+---
+
+6. **Search Term Persistence**
+
+When a new search is performed:
+
+- The trimmed search value is saved to localStorage
+
+- Previous value is overwritten
+
+---
+
+7. **Loading State Indication**
+
+While the API request is being processed:
+
+- A loading indicator is displayed
+
+- The loader remains visible until the request finishes
+
+- Once data is loaded, the loader disappears
+
+---
+
+8. **Error Handling**
+
+If the server returns an error:
+
+- A human-readable error message is shown
+
+- The application continues to work
+
+- No uncaught errors appear in the console
+
+---
+
+9.**Application Error Boundary**
+
+The application implements a React Error Boundary.
+
+Features:
+
+- Errors are logged in the console
+
+- A fallback UI is displayed
+
+- A Test Error Button is available to simulate runtime errors
+
+---
+
+**Project Structure**
+`src
+│
+├── api
+│   └── services
+│
+├── components
+│   ├── search
+│   ├── result
+│   ├── card-list
+│   ├── loader
+│   └── error-handling
+│
+├── types
+│
+├── App.tsx
+├── main.tsx
+└── setupTests.ts`
+
+---
+
+## Installation
+
+Clone the repository:
+
+`git clone https://github.com/artmigalev/rs-react.git`
+
+Enter the project directory:
+
+`cd rs-react`
+
+Install dependencies:
+
+`pnpm install`
+
+---
+
+## Running the Project
+
+Start development server:
+
+`pnpm start`
+
+Build the project:
+
+`pnpm build`
+
+Preview production build:
+
+`pnpm preview`
+
+---
+
+## Assignment Requirements
+
+This project follows the assignment:
+
+React project setup – Class components and Error Boundary
+
+Key constraints:
+
+Vite + React + TypeScript setup
+
+Class components for state and lifecycle
+
+---
+
+## Author
+
+**_Tim Migalev_**
+
+GitHub:
+https://github.com/artmigalev
