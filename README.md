@@ -232,5 +232,5 @@ Class components for state and lifecycle
 
 **_Tim Migalev_**
 
-GitHub:  
+GitHub:
 https://github.com/artmigalev
