@@ -9,12 +9,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   base: '/star-wars-search/',
   plugins: [
-    tsconfigPaths(),
     react({
       babel: {
         plugins: [['babel-plugin-react-compiler']],
       },
     }),
+    tsconfigPaths(),
     tailwindcss(),
   ],
   server: {
@@ -47,7 +47,7 @@ export default defineConfig({
     root: 'src',
     dir: 'src',
 
-    silent: 'passed-only',
+    // silent: 'passed-only',
 
     coverage: {
       provider: 'v8',
