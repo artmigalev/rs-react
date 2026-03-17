@@ -1,8 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 
-test('renders app', () => {
-  render(<App />);
+test('render App', () => {
+  const { debug } = render(<App />);
 
-  expect(screen.getByText(/Simulate Errors/i)).toBeInTheDocument();
+  debug();
+
+  const searchComponent = screen.getByTestId('section');
+  const errorBtn = screen.getByText(/simulate errors/i);
+
+  expect(errorBtn).toBeInTheDocument();
+  expect(searchComponent).toBeInTheDocument();
 });

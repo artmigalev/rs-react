@@ -17,7 +17,7 @@ export class Search extends Component<Props, State> {
 
   render = () => {
     return (
-      <section className={styles['section-search']}>
+      <section data-testid="section" className={styles['section-search']}>
         <form>
           <div className={styles['field-input']}>
             <input

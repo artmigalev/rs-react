@@ -23,27 +23,27 @@
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
-            <span class="strong">0% </span>
+            <span class="strong">72.72% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">0/11</span>
+            <span class="fraction">8/11</span>
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">0% </span>
+            <span class="strong">50% </span>
             <span class="quiet">Branches</span>
-            <span class="fraction">0/4</span>
+            <span class="fraction">2/4</span>
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">0% </span>
+            <span class="strong">60% </span>
             <span class="quiet">Functions</span>
-            <span class="fraction">0/5</span>
+            <span class="fraction">3/5</span>
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">0% </span>
+            <span class="strong">80% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">0/10</span>
+            <span class="fraction">8/10</span>
           </div>
         </div>
         <p class="quiet">
@@ -57,7 +57,7 @@
           </div>
         </template>
       </div>
-      <div class="status-line low"></div>
+      <div class="status-line medium"></div>
       <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -134,9 +134,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,16 +149,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,10 +190,10 @@ type Props = {
 export class CardList extends Component&lt;Props, ListState&gt; {
   #cardService: CardsService;
 &nbsp;
-<span class="fstat-no" title="function not covered" >  constructor(p</span>rops: Props) {
-<span class="cstat-no" title="statement not covered" >    super(props);</span>
-<span class="cstat-no" title="statement not covered" >    this.#cardService = new CardsService();</span>
-<span class="cstat-no" title="statement not covered" >    this.state = { people: props.dataCards };</span>
+  constructor(props: Props) {
+    super(props);
+    this.#cardService = new CardsService();
+    this.state = { people: props.dataCards };
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  componentDidUpdate(p</span>revProps: Readonly&lt;Props&gt;): void {
@@ -205,17 +205,17 @@ export class CardList extends Component&lt;Props, ListState&gt; {
     }
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  render() {</span>
-    const people = <span class="cstat-no" title="statement not covered" >this.state.people;</span>
-<span class="cstat-no" title="statement not covered" >    console.log(people);</span>
+  render() {
+    const people = this.state.people;
+    console.log(people);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;ul className={styles['list-cards']}&gt;
+    return (
+      &lt;ul data-testid='list-card' className={styles['list-cards']}&gt;
         {people.length &gt; 0 ? (
-          people.map(<span class="fstat-no" title="function not covered" >(h</span>uman: IPeople) =&gt; {
-            const card = <span class="cstat-no" title="statement not covered" >this.#cardService.getDefaultCard(human);</span>
+          people.map((human: IPeople) =&gt; {
+            const card = this.#cardService.getDefaultCard(human);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            return (</span>
+            return (
               &lt;li key={card.name}&gt;
                 &lt;Card {...card} /&gt;
               &lt;/li&gt;
@@ -239,7 +239,7 @@ export default CardList;
     <div class="footer quiet pad2 space-top1 center small">
       Code coverage generated by
       <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-      at 2026-03-12T19:17:39.185Z
+      at 2026-03-17T17:22:15.640Z
     </div>
     <script src="../../../prettify.js"></script>
     <script>
