@@ -1,4 +1,4 @@
-import Result from '@/components/resault/Result';
+import Result from '@/components/result/Result';
 import Search from '@/components/search/Search';
 import React from 'react';
 import styles from './home.module.css';
@@ -15,8 +15,6 @@ export class Home extends React.Component<Record<string, never>, State> {
   #receiveService: ReceiveService;
 
   constructor(props: Record<string, never>) {
-    console.log('constructor');
-
     super(props);
     this.#receiveService = ReceiveService.getInstance();
 
@@ -39,7 +37,6 @@ export class Home extends React.Component<Record<string, never>, State> {
   }
 
   componentDidMount(): void {
-    console.log('componentDidMount');
     const searchValue = localStorage.getItem('searchValue');
     if (searchValue) {
       this.setState({
