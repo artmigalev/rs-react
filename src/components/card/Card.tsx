@@ -7,15 +7,17 @@ export class Card extends Component<ICard> {
     const card = this.props;
     return (
       <div className={styles.card}>
-        <h5 className={styles.title} style={{ color: `${card.eye_color}` }}>
+        <h5 role="heading" className={styles.title} style={{ color: `${card.eye_color}` }}>
           {card.name}
         </h5>
 
-        <ul className="flex flex-col">
+        <ul role="list" className="flex flex-col">
           {Object.entries(card).map(([key, val]) => (
-            <li key={key} className=" flex flex-row gap-2">
-              <span className="text-[var(--primary)]">{`${key}:`}</span>
-              <span>{val}</span>
+            <li role="listitem" key={key} className=" flex flex-row gap-2">
+              <span role="generic" className="text-(--primary)">{`${key}:`}</span>
+              <span data-testid={`val-${key}`} role="generic">
+                {val}
+              </span>
             </li>
           ))}
         </ul>

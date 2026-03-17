@@ -35,7 +35,7 @@ export class CardList extends Component<Props, ListState> {
     console.log(people);
 
     return (
-      <ul className={styles['list-cards']}>
+      <ul data-testid="list-card" className={styles['list-cards']}>
         {people.length > 0 ? (
           people.map((human: IPeople) => {
             const card = this.#cardService.getDefaultCard(human);
