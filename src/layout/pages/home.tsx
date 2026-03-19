@@ -1,6 +1,6 @@
 import Result from '@/components/result/Result';
 import Search from '@/components/search/Search';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './home.module.css';
 import { ReceiveService } from '@/api/services/receive.service';
 import type { IPeople } from '@/types/people.interface';
@@ -21,15 +21,12 @@ export const Home = () => {
     results: receiverService.getPeopleBySearchValue(localState) || [],
   });
 
-
-
   const changedStorage = (v: string) => {
-
     handleSetState(v);
 
     setState((state) => ({
       ...state,
-      value:v.trim(),
+      value: v.trim(),
       results: receiverService.getPeopleBySearchValue(v),
     }));
   };
