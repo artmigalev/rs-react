@@ -5,7 +5,6 @@ type Props = {
   value: string;
   onChange: (v: string) => void;
 };
-export type State = { value: string };
 
 const Search = (props: Props) => {
   const { value, onChange } = props;

@@ -20,14 +20,16 @@ export class ReceiveService {
     return null;
   }
 
-  getPeopleBySearchValue(value: string): IPeople[] {
-    const results = this.#data?.results;
-    if (results) {
-      return results.filter((item: IPeople) =>
-        item.name.toLowerCase().includes(value.toLowerCase())
-      );
-    }
-    return this.getResults() || [];
+  async getPeopleBySearchValue(value: string): Promise<IPeople[]> {
+    const results = this.#data?.results || [];
+
+    const resultsFilter = results.filter((item: IPeople) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    return resultsFilter;
   }
 
   static getInstance() {

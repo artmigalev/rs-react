@@ -1,34 +1,37 @@
 import Result from '@/components/result/Result';
 import Search from '@/components/search/Search';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './home.module.css';
 import { ReceiveService } from '@/api/services/receive.service';
 import type { IPeople } from '@/types/people.interface';
 import ErrorHandling from '@/components/error-handling/ErrorHandling';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
-type State = {
-  value: string;
-  results: IPeople[];
-};
-
 export const Home = () => {
   const receiverService = ReceiveService.getInstance();
   const [localState, handleSetState] = useLocalStorage('searchValue', '');
 
-  const [state, setState] = useState<State>({
-    value: localState,
-    results: receiverService.getPeopleBySearchValue(localState) || [],
-  });
+  const [results, setResults] = useState<IPeople[] | null>([]);
 
-  const changedStorage = (v: string) => {
+  useEffect(() => {
+    const loadData = async () => {
+      setResults(null);
+
+      const newResults = await receiverService.getPeopleBySearchValue(localState);
+
+      setResults(newResults);
+    };
+
+    loadData();
+  }, []);
+
+  const changedStorage = async (v: string) => {
     handleSetState(v);
 
-    setState((state) => ({
-      ...state,
-      value: v.trim(),
-      results: receiverService.getPeopleBySearchValue(v),
-    }));
+    setResults(null);
+
+    const newResults = await receiverService.getPeopleBySearchValue(v);
+    setResults(newResults);
   };
 
   return (
@@ -36,12 +39,12 @@ export const Home = () => {
       <div className={styles.wrapper}>
         <ErrorHandling>
           <Search
-            value={state.value}
+            value={localState}
             onChange={(v: string) => {
               changedStorage(v);
             }}
           />
-          <Result results={state.results || []} />
+          <Result results={results} />
         </ErrorHandling>
       </div>
     </div>
