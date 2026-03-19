@@ -23,7 +23,7 @@ export const Home = () => {
     };
 
     loadData();
-  }, []);
+  }, [localState, receiverService]);
 
   const changedStorage = async (v: string) => {
     handleSetState(v);
