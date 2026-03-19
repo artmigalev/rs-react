@@ -1,57 +1,34 @@
 import styles from './CardList.module.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 import Card from '../card/Card';
 import type { IPeople } from '@/types/people.interface';
 import CardsService from '@/api/services/cards.service';
 
-type ListState = {
-  people: IPeople[];
-};
 type Props = {
   dataCards: IPeople[];
 };
 
-export class CardList extends Component<Props, ListState> {
-  #cardService: CardsService;
+const CardList = ({ dataCards }: Props) => {
+  const serviceCard = new CardsService();
 
-  constructor(props: Props) {
-    super(props);
-    this.#cardService = new CardsService();
-    this.state = { people: props.dataCards };
-  }
+  return (
+    <ul data-testid="list-card" className={styles['list-cards']}>
+      {dataCards.length > 0 ? (
+        dataCards.map((human: IPeople) => {
+          const card = serviceCard.getDefaultCard(human);
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
-    if (this.props.dataCards !== prevProps.dataCards) {
-      this.setState((state) => ({
-        ...state,
-        people: this.props.dataCards,
-      }));
-    }
-  }
-
-  render() {
-    const people = this.state.people;
-    console.log(people);
-
-    return (
-      <ul data-testid="list-card" className={styles['list-cards']}>
-        {people.length > 0 ? (
-          people.map((human: IPeople) => {
-            const card = this.#cardService.getDefaultCard(human);
-
-            return (
-              <li key={card.name}>
-                <Card {...card} />
-              </li>
-            );
-          })
-        ) : (
-          <span>cards not found bi list</span>
-        )}
-      </ul>
-    );
-  }
-}
+          return (
+            <li key={card.name}>
+              <Card {...card} />
+            </li>
+          );
+        })
+      ) : (
+        <span>cards not found bi list</span>
+      )}
+    </ul>
+  );
+};
 
 export default CardList;
