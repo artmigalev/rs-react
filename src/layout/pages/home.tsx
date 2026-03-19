@@ -1,69 +1,52 @@
 import Result from '@/components/result/Result';
 import Search from '@/components/search/Search';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './home.module.css';
 import { ReceiveService } from '@/api/services/receive.service';
 import type { IPeople } from '@/types/people.interface';
 import ErrorHandling from '@/components/error-handling/ErrorHandling';
+import { useLocalStorage } from '@uidotdev/usehooks';
 
 type State = {
   value: string;
   results: IPeople[];
 };
 
-export class Home extends React.Component<Record<string, never>, State> {
-  #receiveService: ReceiveService;
+export const Home = () => {
+  const receiverService = ReceiveService.getInstance();
+  const [localState, handleSetState] = useLocalStorage('searchValue', '');
 
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.#receiveService = ReceiveService.getInstance();
+  const [state, setState] = useState<State>({
+    value: localState,
+    results: receiverService.getPeopleBySearchValue(localState) || [],
+  });
 
-    this.state = {
-      value: localStorage.getItem('searchValue') || '',
-      results: this.#receiveService.getResults() || [],
-    };
-  }
 
-  componentDidUpdate(prevProps: Readonly<Record<string, never>>, prevState: Readonly<State>): void {
-    if (prevProps) {
-      if (prevState.value !== this.state.value) {
-        const newResult = this.#receiveService.getPeopleBySearchValue(this.state.value);
-        this.setState((state) => ({
-          ...state,
-          results: newResult,
-        }));
-      }
-    }
-  }
 
-  componentDidMount(): void {
-    const searchValue = localStorage.getItem('searchValue');
-    if (searchValue) {
-      this.setState({
-        value: searchValue,
-        results: this.#receiveService.getPeopleBySearchValue(searchValue),
-      });
-    }
-  }
-  changedStorage(v: string) {
-    this.setState({ value: v.trim() });
-    localStorage.setItem('searchValue', v);
-  }
-  render(): React.ReactNode {
-    return (
-      <div className={styles.home}>
-        <div className={styles.wrapper}>
-          <ErrorHandling>
-            <Search
-              value={this.state.value}
-              onChange={(v: string) => {
-                this.changedStorage(v);
-              }}
-            />
-            <Result results={this.state.results || []} />
-          </ErrorHandling>
-        </div>
+  const changedStorage = (v: string) => {
+
+    handleSetState(v);
+
+    setState((state) => ({
+      ...state,
+      value:v.trim(),
+      results: receiverService.getPeopleBySearchValue(v),
+    }));
+  };
+
+  return (
+    <div className={styles.home}>
+      <div className={styles.wrapper}>
+        <ErrorHandling>
+          <Search
+            value={state.value}
+            onChange={(v: string) => {
+              changedStorage(v);
+            }}
+          />
+          <Result results={state.results || []} />
+        </ErrorHandling>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
