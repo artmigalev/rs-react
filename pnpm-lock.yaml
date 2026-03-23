@@ -22,6 +22,9 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.4(react@19.2.4)
+      swapi-ts:
+        specifier: ^1.0.1
+        version: 1.0.1
       tailwindcss:
         specifier: ^4.2.1
         version: 4.2.1
@@ -1273,6 +1276,12 @@ packages:
     resolution:
       {
         integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==,
+      }
+
+  '@types/lodash@4.17.24':
+    resolution:
+      {
+        integrity: sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==,
       }
 
   '@types/node@24.12.0':
@@ -3030,6 +3039,12 @@ packages:
         integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==,
       }
 
+  lodash@4.17.23:
+    resolution:
+      {
+        integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==,
+      }
+
   loose-envify@1.4.0:
     resolution:
       {
@@ -3720,6 +3735,12 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
+  swapi-ts@1.0.1:
+    resolution:
+      {
+        integrity: sha512-/HVRfzqKUUEZvKByXbpoa7pdAdNxEX5IAc5+Xm2+PSZTixavkd7HoZOZ8hJl1xWc/Ukqe4Vqr6a98OQKbzwV3w==,
+      }
+
   symbol-tree@3.2.4:
     resolution:
       {
@@ -3880,6 +3901,14 @@ packages:
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       typescript: '>=4.8.4 <6.0.0'
+
+  typescript@4.9.5:
+    resolution:
+      {
+        integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==,
+      }
+    engines: { node: '>=4.2.0' }
+    hasBin: true
 
   typescript@5.9.3:
     resolution:
@@ -4758,6 +4787,8 @@ snapshots:
   '@types/estree@1.0.8': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/lodash@4.17.24': {}
 
   '@types/node@24.12.0':
     dependencies:
@@ -5991,6 +6022,8 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
+  lodash@4.17.23: {}
+
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
@@ -6436,6 +6469,12 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
+  swapi-ts@1.0.1:
+    dependencies:
+      '@types/lodash': 4.17.24
+      lodash: 4.17.23
+      typescript: 4.9.5
+
   symbol-tree@3.2.4: {}
 
   synckit@0.11.12:
@@ -6534,6 +6573,8 @@ snapshots:
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
+
+  typescript@4.9.5: {}
 
   typescript@5.9.3: {}
 

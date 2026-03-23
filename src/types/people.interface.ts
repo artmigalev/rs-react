@@ -1,24 +1,8 @@
+import type { IPeople } from 'swapi-ts';
+
 export interface ResponsePeople {
   count: number;
   next: string;
   previous: null;
   results: IPeople[];
-}
-export interface IPeople {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: [];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
 }

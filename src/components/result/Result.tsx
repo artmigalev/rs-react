@@ -1,22 +1,33 @@
 import styles from './Result.module.css';
 import CardList from '../card-list/CardList';
-import type { ResponsePeople } from '@/types/people.interface';
 import Loader from '../loader/Loader';
 import ErrorBtn from '../error-handling/error-btn/ErrorBtn';
+import Pagination from '../pagination/Pagination';
+import type { DataState } from '@/utils/hooks/usePeople';
 
-type PropsResult = {
-  results: ResponsePeople['results'] | null;
-};
+type PropsResult = DataState & { setCurrentPage: (page: number) => void; currentPage: number };
 
-const Result = ({ results }: PropsResult) => {
-  const isLoad = results === null;
-
+const Result = ({ results, isLoad, setCurrentPage, currentPage, countsPages }: PropsResult) => {
   if (isLoad) {
     return <Loader />;
   } else {
     return (
       <section className={styles['section-result']}>
-        {results.length === 0 ? <h2>Not Found</h2> : <CardList dataCards={results} />}
+        {results.length === 0 ? (
+          <h2>Not Found</h2>
+        ) : (
+          <>
+            <CardList dataCards={results} />
+            {countsPages && countsPages.length > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                counts={countsPages}
+                activatePage={setCurrentPage}
+              />
+            )}
+          </>
+        )}
+
         <ErrorBtn />
       </section>
     );

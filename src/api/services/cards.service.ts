@@ -1,5 +1,5 @@
 import type { ICard } from '@/types/card.interface';
-import type { IPeople } from '@/types/people.interface';
+import type { IPeople } from 'swapi-ts';
 
 export class CardsService {
   getDefaultCard(people: IPeople): ICard {

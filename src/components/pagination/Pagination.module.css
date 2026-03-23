@@ -1,0 +1,23 @@
+.paging-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  & li {
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--primary);
+    border: var(--border-custom);
+    border-color: var(--primary);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.active {
+  background-color: var(--secondary) !important;
+}

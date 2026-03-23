@@ -1,9 +1,8 @@
 import styles from './CardList.module.css';
 
-import React from 'react';
 import Card from '../card/Card';
-import type { IPeople } from '@/types/people.interface';
 import CardsService from '@/api/services/cards.service';
+import type { IPeople } from 'swapi-ts';
 
 type Props = {
   dataCards: IPeople[];
