@@ -1,7 +1,8 @@
 import PeopleService from '@/api/services/people.service';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { IPeople } from 'swapi-ts';
+import { getCounts } from '../funcs/countsCreated';
 
 export type DataState = {
   results: IPeople[];
@@ -10,7 +11,7 @@ export type DataState = {
 };
 
 export const usePeople = () => {
-  const servicePeople = PeopleService.getInstance();
+  const servicePeople = useMemo(() => new PeopleService(), []); //new PeopleService();
   const [localState, handleSetState] = useLocalStorage('searchValue', '');
 
   const [isLoad, setIsLoad] = useState(true);
@@ -21,22 +22,32 @@ export const usePeople = () => {
   useEffect(() => {
     const loadData = async () => {
       setIsLoad(true);
+      const data = await servicePeople.getPage(currentPage);
+      setResults(data.results);
+      setCountsPages(getCounts(data.count));
+      setIsLoad(false);
+    };
+    loadData();
+  }, [currentPage, servicePeople]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoad(true);
 
       if (localState.length > 0) {
         const data = await servicePeople.getDataBySearchValue(localState);
         setResults(data);
-        setCountsPages(servicePeople.getCounts(data.length));
+        setCountsPages(getCounts(data.length));
         setIsLoad(false);
       } else {
-        const data = await servicePeople.getPage<IPeople[]>(currentPage);
-        setResults(data);
-        setCurrentPage(servicePeople.getCurrentPage());
-        setCountsPages(servicePeople.countsPages);
+        const data = await servicePeople.getPage();
+        setResults(data.results);
+        setCountsPages(getCounts(data.count));
         setIsLoad(false);
       }
     };
     loadData();
-  }, [localState, currentPage, servicePeople]);
+  }, [localState, servicePeople]);
 
   return { results, currentPage, countsPages, isLoad, setCurrentPage, localState, handleSetState };
 };
