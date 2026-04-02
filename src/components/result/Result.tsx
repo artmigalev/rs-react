@@ -18,7 +18,7 @@ const Result = ({ results, isLoad, setCurrentPage, currentPage, countsPages }: P
         ) : (
           <>
             <CardList dataCards={results} />
-            {countsPages && countsPages.length > 1 && (
+            {!isLoad && results.length > 0 && (
               <Pagination
                 currentPage={Number(currentPage)}
                 counts={countsPages}

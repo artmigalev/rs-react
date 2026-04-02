@@ -5,17 +5,19 @@ import ErrorHandling from '@/components/error-handling/ErrorHandling';
 import { usePeople } from '@/utils/hooks/usePeople';
 
 export const Home = () => {
-  const { handleSetState, localState, results, page, countsPages, isLoad, setSearchParams } =
-    usePeople();
+  const { searchValue, results, page, countsPages, isLoad, setSearchParams } = usePeople();
 
   return (
     <div className={styles.home}>
       <div className={styles.wrapper}>
         <ErrorHandling>
           <Search
-            value={localState}
+            value={searchValue}
             onChange={(v: string) => {
-              handleSetState(v);
+              setSearchParams((state) => ({
+                ...state,
+                search: v,
+              }));
             }}
           />
 

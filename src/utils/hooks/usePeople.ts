@@ -1,5 +1,4 @@
 import PeopleService from '@/api/services/people.service';
-import { useLocalStorage } from '@uidotdev/usehooks';
 import { useEffect, useMemo, useState } from 'react';
 import type { IPeople } from 'swapi-ts';
 import { getCounts } from '../funcs/countsCreated';
@@ -13,12 +12,16 @@ export type DataState = {
 
 export const usePeople = () => {
   const servicePeople = useMemo(() => new PeopleService(), []); //new PeopleService();
-  const [localState, handleSetState] = useLocalStorage('searchValue', '');
 
   const [isLoad, setIsLoad] = useState(true);
   const [results, setResults] = useState<IPeople[]>([]);
-  const [searchParams, setSearchParams] = useSearchParams({ page: '1' });
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: '1',
+    search: '',
+  });
   const [countsPages, setCountsPages] = useState<number[]>([]);
+  const page = useMemo(() => searchParams.get('page'), [searchParams]);
+  const searchValue = useMemo(() => searchParams.get('search'), [searchParams]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -37,8 +40,8 @@ export const usePeople = () => {
     const loadData = async () => {
       setIsLoad(true);
 
-      if (localState.length > 0) {
-        const data = await servicePeople.getDataBySearchValue(localState);
+      if (searchValue && searchValue.length > 0) {
+        const data = await servicePeople.getDataBySearchValue(searchValue);
         setResults(data);
         setCountsPages(getCounts(data.length));
         setIsLoad(false);
@@ -50,8 +53,7 @@ export const usePeople = () => {
       }
     };
     loadData();
-  }, [localState, servicePeople]);
+  }, [searchValue, searchParams, servicePeople]);
 
-  const page = useMemo(() => searchParams.get('page'), [searchParams]);
-  return { results, page, countsPages, isLoad, setSearchParams, localState, handleSetState };
+  return { results, page, countsPages, isLoad, setSearchParams, searchValue };
 };
