@@ -5,7 +5,7 @@ import ErrorBtn from '../error-handling/error-btn/ErrorBtn';
 import Pagination from '../pagination/Pagination';
 import type { DataState } from '@/utils/hooks/usePeople';
 
-type PropsResult = DataState & { setCurrentPage: (page: number) => void; currentPage: number };
+type PropsResult = DataState & { setCurrentPage: (page: number) => void; currentPage: string };
 
 const Result = ({ results, isLoad, setCurrentPage, currentPage, countsPages }: PropsResult) => {
   if (isLoad) {
@@ -20,7 +20,7 @@ const Result = ({ results, isLoad, setCurrentPage, currentPage, countsPages }: P
             <CardList dataCards={results} />
             {countsPages && countsPages.length > 1 && (
               <Pagination
-                currentPage={currentPage}
+                currentPage={Number(currentPage)}
                 counts={countsPages}
                 activatePage={setCurrentPage}
               />

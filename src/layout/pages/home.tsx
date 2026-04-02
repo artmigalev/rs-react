@@ -5,7 +5,7 @@ import ErrorHandling from '@/components/error-handling/ErrorHandling';
 import { usePeople } from '@/utils/hooks/usePeople';
 
 export const Home = () => {
-  const { handleSetState, localState, results, currentPage, countsPages, isLoad, setCurrentPage } =
+  const { handleSetState, localState, results, page, countsPages, isLoad, setSearchParams } =
     usePeople();
 
   return (
@@ -22,9 +22,9 @@ export const Home = () => {
           <Result
             results={results}
             isLoad={isLoad}
-            currentPage={currentPage}
+            currentPage={page}
             countsPages={countsPages}
-            setCurrentPage={setCurrentPage}
+            setCurrentPage={(page) => setSearchParams({ page: page.toString() })}
           />
         </ErrorHandling>
       </div>

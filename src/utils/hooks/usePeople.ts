@@ -3,6 +3,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { useEffect, useMemo, useState } from 'react';
 import type { IPeople } from 'swapi-ts';
 import { getCounts } from '../funcs/countsCreated';
+import { useSearchParams } from 'react-router';
 
 export type DataState = {
   results: IPeople[];
@@ -16,19 +17,21 @@ export const usePeople = () => {
 
   const [isLoad, setIsLoad] = useState(true);
   const [results, setResults] = useState<IPeople[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams({ page: '1' });
   const [countsPages, setCountsPages] = useState<number[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
       setIsLoad(true);
-      const data = await servicePeople.getPage(currentPage);
+      const data = await servicePeople.getPage(
+        searchParams.get('page') ? Number(searchParams.get('page')) : 1
+      );
       setResults(data.results);
       setCountsPages(getCounts(data.count));
       setIsLoad(false);
     };
     loadData();
-  }, [currentPage, servicePeople]);
+  }, [searchParams, servicePeople]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -49,5 +52,6 @@ export const usePeople = () => {
     loadData();
   }, [localState, servicePeople]);
 
-  return { results, currentPage, countsPages, isLoad, setCurrentPage, localState, handleSetState };
+  const page = useMemo(() => searchParams.get('page'), [searchParams]);
+  return { results, page, countsPages, isLoad, setSearchParams, localState, handleSetState };
 };
