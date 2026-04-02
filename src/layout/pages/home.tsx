@@ -12,7 +12,7 @@ export const Home = () => {
       <div className={styles.wrapper}>
         <ErrorHandling>
           <Search
-            value={searchValue}
+            value={searchValue || ''}
             onChange={(v: string) => {
               setSearchParams((state) => ({
                 ...state,
@@ -24,7 +24,7 @@ export const Home = () => {
           <Result
             results={results}
             isLoad={isLoad}
-            currentPage={page}
+            currentPage={page ?? '1'}
             countsPages={countsPages}
             setCurrentPage={(page) => setSearchParams({ page: page.toString() })}
           />
