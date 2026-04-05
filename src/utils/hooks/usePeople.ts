@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router';
 
 export type DataState = {
   results: IPeople[];
-  isLoad: boolean;
+  // isLoad: boolean;
   countsPages: number[];
 };
 

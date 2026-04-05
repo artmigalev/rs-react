@@ -9,7 +9,7 @@ const Card = (card: ICard) => {
         {card.name}
       </h5>
 
-      <ul role="list" className="flex flex-col">
+      <ul role="list" className="flex flex-col ">
         {Object.entries(card).map(([key, val]) => (
           <li role="listitem" key={key} className=" flex flex-row gap-2">
             <span role="generic" className="text-(--primary)">{`${key}:`}</span>

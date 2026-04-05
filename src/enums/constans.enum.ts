@@ -1,3 +1,3 @@
-export enum RoutesApp {
+export enum AppRoutes {
   BASE = '/star-wars-search/',
 }
