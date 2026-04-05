@@ -2,29 +2,37 @@ import Result from '@/components/result/Result';
 import Search from '@/components/search/Search';
 import styles from './home.module.css';
 import ErrorHandling from '@/components/error-handling/ErrorHandling';
-import { usePeople } from '@/utils/hooks/usePeople';
+import { useLoaderData, useParams, useSearchParams } from 'react-router';
+import type { IPeople } from 'swapi-ts';
+import { useMemo } from 'react';
+import { getCounts } from '@/utils/funcs/countsCreated';
 
 export const Home = () => {
-  const { handleSetState, localState, results, page, countsPages, isLoad, setSearchParams } =
-    usePeople();
+  const [searchParams, setSearchParams] = useSearchParams({ search: '' });
+  const loaderData = useLoaderData<{ results: IPeople[]; count: number }>();
+
+  const counts = useMemo(() => {
+    return getCounts(loaderData.count);
+  }, [loaderData]);
+
+  const params = useParams();
 
   return (
     <div className={styles.home}>
       <div className={styles.wrapper}>
         <ErrorHandling>
           <Search
-            value={localState}
+            value={searchParams.get('search') || ''}
             onChange={(v: string) => {
-              handleSetState(v);
+              setSearchParams({ search: v });
             }}
           />
 
           <Result
-            results={results}
-            isLoad={isLoad}
-            currentPage={page}
-            countsPages={countsPages}
-            setCurrentPage={(page) => setSearchParams({ page: page.toString() })}
+            results={loaderData.results}
+            currentPage={params.page || '1'}
+            countsPages={counts}
+            // setCurrentPage={(page) => setSearchParams({ page: page.toString() })}
           />
         </ErrorHandling>
       </div>

@@ -1,8 +1,11 @@
 import { People, type IPeople } from 'swapi-ts';
 
 export default class PeopleService {
-  async getPage(page: number = 1): Promise<{ results: IPeople[]; count: number }> {
-    const response = await People.getPage(page);
+  async getPage(
+    page: number = 1,
+    searchValue?: string
+  ): Promise<{ results: IPeople[]; count: number }> {
+    const response = await People.getPage(page, searchValue);
     const { results, count } = response;
 
     return {
