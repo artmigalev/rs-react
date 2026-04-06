@@ -2,14 +2,14 @@ import styles from './Result.module.css';
 import CardList from '../card-list/CardList';
 import Loader from '../loader/Loader';
 import ErrorBtn from '../error-handling/error-btn/ErrorBtn';
+import { Outlet, useNavigation, useParams, useRouteLoaderData } from 'react-router';
 import Pagination from '../pagination/Pagination';
-import { useNavigation } from 'react-router';
-import type { DataState } from '@/utils/hooks/usePeople';
+import { AppRoutes } from '@/enums/constans.enum';
 
-type PropsResult = DataState & { setCurrentPage: (page: number) => void; currentPage: string };
-
-const Result = ({ results, countsPages }: PropsResult) => {
+const Result = () => {
+  const { data, counts } = useRouteLoaderData(AppRoutes.ID__HOME);
   const navigation = useNavigation();
+  const { detailsId } = useParams();
 
   if (navigation.state === 'loading') {
     return <Loader />;
@@ -17,13 +17,20 @@ const Result = ({ results, countsPages }: PropsResult) => {
 
   return (
     <section className={styles['section-result']}>
-      {results.length === 0 ? (
+      {data.results.length === 0 ? (
         <h2>Not Found</h2>
       ) : (
-        <>
-          <CardList dataCards={results} />
-          {results && results.length > 1 && <Pagination counts={countsPages} />}
-        </>
+        <div className="flex flex-row h-[inherit] ">
+          {detailsId && (
+            <aside className={styles['sidebar-details']}>
+              <Outlet />
+            </aside>
+          )}
+          <div className="flex flex-col gap-5">
+            <CardList dataCards={data.results} />
+            {data && data.results.length > 1 && <Pagination counts={counts} />}
+          </div>
+        </div>
       )}
 
       <ErrorBtn />

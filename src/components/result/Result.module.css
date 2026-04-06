@@ -10,5 +10,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+}
+.sidebar-details {
+  border: var(--border-custom);
+  border-radius: var(--border-radius);
+  padding: var(--padding-small);
+  height: max-content;
+  max-width: 400px;
 }

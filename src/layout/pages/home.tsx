@@ -1,21 +1,17 @@
-import Result from '@/components/result/Result';
 import Search from '@/components/search/Search';
 import styles from './home.module.css';
 import ErrorHandling from '@/components/error-handling/ErrorHandling';
-import { useLoaderData, useParams, useSearchParams } from 'react-router';
-import type { IPeople } from 'swapi-ts';
-import { useMemo } from 'react';
-import { getCounts } from '@/utils/funcs/countsCreated';
+import { Outlet, useNavigate, useParams, useSearchParams } from 'react-router';
 
 export const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams({ search: '' });
-  const loaderData = useLoaderData<{ results: IPeople[]; count: number }>();
 
-  const counts = useMemo(() => {
-    return getCounts(loaderData.count);
-  }, [loaderData]);
+  const { page } = useParams();
+  const navigate = useNavigate();
 
-  const params = useParams();
+  const handleClickClose = () => {
+    navigate(`/star-wars-search/${page || '1'}`);
+  };
 
   return (
     <div className={styles.home}>
@@ -27,13 +23,7 @@ export const Home = () => {
               setSearchParams({ search: v });
             }}
           />
-
-          <Result
-            results={loaderData.results}
-            currentPage={params.page || '1'}
-            countsPages={counts}
-            // setCurrentPage={(page) => setSearchParams({ page: page.toString() })}
-          />
+          <Outlet />
         </ErrorHandling>
       </div>
     </div>
