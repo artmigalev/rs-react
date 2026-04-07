@@ -15,7 +15,7 @@ const Detail = () => {
   }
 
   return (
-    <ul role="list" className="flex flex-col">
+    <ul role="list" className="flex flex-col ">
       {loaderDetailCard &&
         Object.entries(...loaderDetailCard).map(([key, val]) => (
           <li role="listitem" key={key} className=" flex flex-row gap-2 ">

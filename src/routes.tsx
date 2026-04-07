@@ -31,9 +31,10 @@ const loaderCards = async ({
 
   const service = new PeopleService();
 
-  const data = await service.getPage(Number(page), searchTerm);
+  const data = await service.getPage(page, searchTerm);
 
   const counts = getCounts(data.count);
+  console.log();
 
   return {
     data,
