@@ -1,5 +1,5 @@
 import { ReceiveService } from '@/api/services/receive.service';
-import { Home } from '@/layout/pages/Home';
+import { Home } from '@/layout/pages/home/Home';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
