@@ -5,9 +5,11 @@ import ErrorBtn from '../error-handling/error-btn/ErrorBtn';
 import { Outlet, useNavigation, useParams, useRouteLoaderData } from 'react-router';
 import Pagination from '../pagination/Pagination';
 import { AppRoutes } from '@/enums/constans.enum';
+import type { DataLoaderCards } from '@/routes';
+import NotFoundPage from '@/layout/pages/404/404';
 
 const Result = () => {
-  const { data, counts } = useRouteLoaderData(AppRoutes.ID__HOME);
+  const loaderData = useRouteLoaderData<DataLoaderCards>(AppRoutes.ID__HOME);
   const navigation = useNavigation();
   const { detailsId } = useParams();
 
@@ -15,9 +17,13 @@ const Result = () => {
     return <Loader />;
   }
 
+  if (!loaderData || !loaderData.data.results) {
+    return <NotFoundPage />;
+  }
+
   return (
     <section className={styles['section-result']}>
-      {data.results.length === 0 ? (
+      {loaderData.data.results.length === 0 ? (
         <h2>Not Found</h2>
       ) : (
         <div className="flex flex-row h-[inherit] ">
@@ -27,8 +33,10 @@ const Result = () => {
             </aside>
           )}
           <div className="flex flex-col gap-5">
-            <CardList dataCards={data.results} />
-            {data && data.results.length > 1 && <Pagination counts={counts} />}
+            <CardList dataCards={loaderData.data.results} />
+            {loaderData.data && loaderData.data.results.length > 1 && (
+              <Pagination counts={loaderData.counts} />
+            )}
           </div>
         </div>
       )}

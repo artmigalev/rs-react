@@ -25,6 +25,7 @@ html {
   --primary: #639c7f;
   --secondary: #31424e;
   --accent: #454e6e;
+  --error: rgb(217, 38, 38);
 }
 
 body {

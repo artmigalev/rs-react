@@ -17,16 +17,21 @@ export const loaderCards = async ({
   await new Promise((res) => setTimeout(res, 1000));
 
   const service = new PeopleService();
+  try {
+    const data = await service.getPage(page, searchTerm);
+    const counts = getCounts(data.count);
+    console.log(data);
 
-  const data = await service.getPage(page, searchTerm);
-
-  const counts = getCounts(data.count);
-  console.log();
-
-  return {
-    data,
-    counts,
-  };
+    if (!data.results) {
+      throw new Response('Not Found', { status: 404 });
+    }
+    return {
+      data,
+      counts,
+    };
+  } catch (error) {
+    throw new Response('Invalid Page', { status: 404 });
+  }
 };
 export const loaderDetailCard = async ({ params }: { params: RouteMatch['params'] }) => {
   const service = new PeopleService();

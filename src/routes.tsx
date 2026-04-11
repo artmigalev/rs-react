@@ -6,7 +6,8 @@ import Result from './components/result/Result';
 import type { IPeople } from 'swapi-ts';
 import { AppRoutes } from './enums/constans.enum';
 import { loaderDetailCard, loaderCards } from './utils/loaders';
-import About from './layout/pages/about/about';
+import About from '@layout/pages/about/About';
+import NotFoundPage from './layout/pages/404/404';
 
 export type DataLoaderCards = {
   data: {
@@ -18,10 +19,6 @@ export type DataLoaderCards = {
 
 const routes = createBrowserRouter([
   {
-    index: true,
-    element: <App />,
-  },
-  {
     path: '/star-wars-search/',
     element: <App />,
     children: [
@@ -30,6 +27,7 @@ const routes = createBrowserRouter([
         id: AppRoutes.ID__HOME,
         element: <Home />,
         loader: loaderCards,
+        errorElement: <NotFoundPage />,
         children: [
           {
             element: <Result />,
@@ -39,6 +37,7 @@ const routes = createBrowserRouter([
                 path: ':detailsId?',
                 element: <Detail />,
                 loader: loaderDetailCard,
+                errorElement: <NotFoundPage />,
               },
             ],
           },
@@ -47,6 +46,10 @@ const routes = createBrowserRouter([
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },
