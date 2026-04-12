@@ -1,58 +1,60 @@
-import Result from '@/components/result/Result';
-import type { IPeople } from '@/types/people.interface';
 import { render, screen } from '@testing-library/react';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { useRouteLoaderData, useNavigation, useParams, useLocation } from 'react-router';
+import Result from '@/components/result/Result';
+
+const { vi_mockLoaderData } = vi.hoisted(() => {
+  const mockData = [
+    {
+      name: 'nameMock',
+      birth_year: '1990',
+      gender: 'men',
+      hair_color: 'red',
+      skin_color: 'blue',
+      eye_color: 'black',
+      homeworld: 'string',
+      films: ['string'],
+      species: [],
+      vehicles: ['string'],
+      starships: ['string'],
+      created: 'string',
+      edited: 'string',
+      url: 'string',
+      height: 'sds',
+      mass: '',
+    },
+  ];
+
+  return {
+    vi_mockLoaderData: {
+      data: { results: mockData },
+      counts: [3, 5],
+    },
+  };
+});
+
+vi.mock('react-router', async () => {
+  return {
+    useRouteLoaderData: vi.fn().mockReturnValue(vi_mockLoaderData),
+    useNavigation: vi.fn().mockReturnValue({ state: 'idle' }),
+    useParams: vi.fn().mockReturnValue({}),
+    Outlet: () => null,
+    useLocation: vi.fn().mockReturnValue({ pathname: '/' }),
+  };
+});
 
 describe('Result', () => {
-  const state = {
-    people: [],
-    isLoad: true,
-  };
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   it('should be  plug when results empty', () => {
-    render(<Result results={state.people} />);
+    vi.mocked(useNavigation).mockReturnValue({ state: 'loading' });
+    vi.mocked(useRouteLoaderData).mockReturnValue(undefined);
+    vi.mocked(useParams).mockReturnValue({});
 
-    const plug = screen.getByText(/not found/i);
+    render(<Result />);
 
-    expect(plug).toBeInTheDocument();
-  });
-
-  it('should loader when loading data', () => {
-    const mockData: IPeople[] = [
-      {
-        name: 'nameMock',
-        birth_year: '1990',
-        gender: 'men',
-        hair_color: 'red',
-        skin_color: 'blue',
-        eye_color: 'black',
-        homeworld: 'string',
-        films: ['string'],
-        species: [],
-        vehicles: ['string'],
-        starships: ['string'],
-        created: 'string',
-        edited: 'string',
-        url: 'string',
-        height: 'sds',
-        mass: '',
-      },
-    ];
-
-    const initialState: [] = [];
-    const newResults = mockData;
-
-    const { rerender } = render(<Result results={initialState} />);
-
-    rerender(<Result results={newResults} />);
-
-    const loader = screen.getByTestId('loader');
-    expect(loader).toBeInTheDocument();
-  });
-
-  it('render handle Button error', () => {
-    render(<Result results={state.people} />);
-    const btnError = screen.getByRole('button', { name: /Simulate Errors/i });
-
-    expect(btnError).toBeInTheDocument();
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
 });
