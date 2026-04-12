@@ -7,6 +7,7 @@ import Pagination from '../pagination/Pagination';
 import { AppRoutes } from '@/enums/constans.enum';
 import type { DataLoaderCards } from '@/routes';
 import NotFoundPage from '@/layout/pages/404/404';
+import { Activity } from 'react';
 
 const Result = () => {
   const loaderData = useRouteLoaderData<DataLoaderCards>(AppRoutes.ID__HOME);
@@ -26,17 +27,20 @@ const Result = () => {
       {loaderData.data.results.length === 0 ? (
         <h2>Not Found</h2>
       ) : (
-        <div className="flex flex-row h-[inherit] ">
-          {detailsId && (
-            <aside className={styles['sidebar-details']}>
-              <Outlet />
-            </aside>
-          )}
-          <div className="flex flex-col gap-5">
-            <CardList dataCards={loaderData.data.results} />
-            {loaderData.data && loaderData.data.results.length > 1 && (
-              <Pagination counts={loaderData.counts} />
+        <div className="flex flex-row gap-[var(--gap-default)] min-h-0">
+          <>
+            {detailsId && (
+              <aside className={styles['sidebar-details']}>
+                <Outlet />
+              </aside>
             )}
+          </>
+
+          <div className={styles['results__container--cards']}>
+            <CardList dataCards={loaderData.data.results} />
+            <Activity mode={loaderData.data.results.length > 1 ? 'visible' : 'hidden'}>
+              <Pagination counts={loaderData.counts} />
+            </Activity>
           </div>
         </div>
       )}

@@ -18,7 +18,7 @@ const Detail = () => {
     <ul role="list" className="flex flex-col ">
       {loaderDetailCard &&
         Object.entries(...loaderDetailCard).map(([key, val]) => (
-          <li role="listitem" key={key} className=" flex flex-row gap-2 ">
+          <li role="listitem" key={key} className=" flex flex-row gap-2 overflow-x-auto">
             <span role="generic" className="text-(--primary)">{`${key}:`}</span>
             <span data-testid={`val-${key}`} role="generic">
               {val}
