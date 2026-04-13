@@ -2,6 +2,29 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Card from '@/components/card/Card';
 import type { ICard } from '@/types/card.interface';
+import { MemoryRouter, Route, Routes } from 'react-router';
+
+vi.mock('react-router-dom', async () => {
+  return {
+    NavLink: ({
+      children,
+      to,
+      className,
+    }: {
+      children: React.ReactNode;
+      to: string;
+      className?: ({ isActive }: { isActive: boolean }) => string;
+    }) => (
+      <a
+        href={to}
+        className={typeof className === 'function' ? className({ isActive: false }) : className}
+      >
+        {children}
+      </a>
+    ),
+    useParams: vi.fn(() => ({ page: 'home' })),
+  };
+});
 
 export const mockCard = {
   name: 'card-name',
@@ -12,9 +35,19 @@ export const mockCard = {
   eye_color: 'red',
 } satisfies ICard;
 
+const renderWithRouter = (ui: React.ReactElement, { route = '/1' } = {}) => {
+  return render(
+    <MemoryRouter initialEntries={[route]}>
+      <Routes>
+        <Route path="/:page" element={ui} />
+      </Routes>
+    </MemoryRouter>
+  );
+};
+
 describe('Card', () => {
   it('renders without breaking', () => {
-    const { getByRole } = render(<Card {...mockCard} />);
+    const { getByRole } = renderWithRouter(<Card {...mockCard} />);
 
     const list = getByRole('list');
 

@@ -6,12 +6,6 @@ export type PropsErrorCard = {
   'error-code': string;
 };
 
-type State = {
-  title: Error['name'];
-  subtitle: Error['message'];
-  'error-code': string;
-};
-
 export const ErrorCard = (props: PropsErrorCard) => {
   const { title, subtitle } = props;
 

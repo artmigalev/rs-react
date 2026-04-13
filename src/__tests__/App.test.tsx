@@ -1,14 +1,31 @@
 import { render, screen } from '@testing-library/react';
 import App from '../App';
+import { MemoryRouter, Route, Routes } from 'react-router';
 
-test('render App', () => {
-  const { debug } = render(<App />);
+describe('render App', () => {
+  it('should be in DOM', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
 
-  debug();
+    const appContainer = document.getElementById('app');
 
-  const searchComponent = screen.getByTestId('section');
-  const errorBtn = screen.getByText(/simulate errors/i);
+    expect(appContainer).toBeInTheDocument();
+  });
+  it('should be render child routes', () => {
+    const ChildTest = () => <div>Child Content</div>;
 
-  expect(errorBtn).toBeInTheDocument();
-  expect(searchComponent).toBeInTheDocument();
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<ChildTest />} />
+          </Route>
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/child content/i));
+  });
 });

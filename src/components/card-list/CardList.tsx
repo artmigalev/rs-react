@@ -1,6 +1,6 @@
 import styles from './CardList.module.css';
 
-import Card from '../card/Card';
+import Card from '@/components/card/Card';
 import CardsService from '@/api/services/cards.service';
 import type { IPeople } from 'swapi-ts';
 

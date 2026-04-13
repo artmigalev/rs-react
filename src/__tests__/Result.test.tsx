@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { useRouteLoaderData, useNavigation, useParams, useLocation } from 'react-router';
+import { useRouteLoaderData, useNavigation, useParams } from 'react-router';
 import Result from '@/components/result/Result';
 
 const { vi_mockLoaderData } = vi.hoisted(() => {
