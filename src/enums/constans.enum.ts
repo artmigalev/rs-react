@@ -3,4 +3,8 @@ export enum AppRoutes {
 
   ID__DETAIL = 'detail-data',
   ID__HOME = 'home-data',
+
+  ABOUT = 'about',
+
+
 }
