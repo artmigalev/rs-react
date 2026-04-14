@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import { RouterProvider } from 'react-router';
 import routes from './routes.tsx';
+import { Provider } from 'react-redux';
+import { store } from './store/index.ts';
 
 async function bootStrap() {
   const root = document.getElementById('root');
@@ -11,7 +13,9 @@ async function bootStrap() {
     if (root)
       createRoot(root).render(
         <StrictMode>
-          <RouterProvider router={routes} />
+          <Provider store={store}>
+            <RouterProvider router={routes} />
+          </Provider>
         </StrictMode>
       );
   } catch {
