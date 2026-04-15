@@ -1,3 +1,4 @@
 pnpm format
 pnpm eslint --fix .
 pnpm lint
+git add .
