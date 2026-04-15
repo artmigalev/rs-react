@@ -17,3 +17,13 @@
   border-radius: var(--border-radius);
   padding: var(--padding-small);
 }
+.list-item {
+  padding: var(--padding-small);
+  border: var(--border-custom);
+  border-color: var(--primary);
+  border-radius: var(--border-radius);
+}
+.checkbox-card {
+  background: var(--accent);
+  color: var(--primary);
+}

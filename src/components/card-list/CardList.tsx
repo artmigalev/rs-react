@@ -18,7 +18,8 @@ const CardList = ({ dataCards }: Props) => {
           const card = serviceCard.getDefaultCard(human);
 
           return (
-            <li key={card.name}>
+            <li className={styles['list-item']} key={card.name}>
+              <input className={styles['checkbox-card']} type="checkbox" name="card-check" />
               <Card {...card} />
             </li>
           );

@@ -5,11 +5,9 @@ import { NavLink, useParams } from 'react-router-dom';
 
 const Card = (card: ICard) => {
   const { page } = useParams();
+
   return (
-    <NavLink
-      to={`${AppRoutes.BASE}${page || '1'}/${card['name'].toLowerCase()}`}
-      className={({ isActive }) => (isActive ? 'bg-[var(--accent)]' : '')}
-    >
+    <NavLink to={`${AppRoutes.BASE}${page || '1'}/${card['name'].toLowerCase()}`}>
       <div className={styles.card}>
         <h5 role="heading" className={styles.title} style={{ color: `${card.eye_color}` }}>
           {card.name}
