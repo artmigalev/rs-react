@@ -1,20 +1,29 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { IPeople } from 'swapi-ts';
 
-const initialState: IPeople[] = [];
+export type State = {
+  checkedCards: IPeople[];
+};
+
+const initialState: State = {
+  checkedCards: [],
+};
 
 export const cardSlice = createSlice({
-  name: 'card',
+  name: 'card-list',
   initialState,
   reducers: {
     addCardByList: (state, action: PayloadAction<IPeople>) => {
-      state.push(action.payload);
+      const exists = state.checkedCards.some((card) => card.name === action.payload.name);
+      if (!exists) {
+        state.checkedCards.push(action.payload);
+      }
     },
     destroyCardByList: (state, action: PayloadAction<number>) => {
-      state.splice(action.payload, 1);
+      state.checkedCards.splice(action.payload, 1);
     },
     unselectAll: (state) => {
-      state.splice(0, state.length);
+      state.checkedCards = [];
     },
   },
 });

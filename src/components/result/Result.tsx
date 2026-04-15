@@ -9,13 +9,15 @@ import type { DataLoaderCards } from '@/routes';
 import NotFoundPage from '@/layout/pages/404/404';
 import { Activity } from 'react';
 import Dashboard from '../dashboard/Dashboard';
+import { useAppSelector } from '@/utils/hooks/redux.hooks';
 
 const Result = () => {
   const loaderData = useRouteLoaderData<DataLoaderCards>(AppRoutes.ID__HOME);
   const navigation = useNavigation();
-  const { detailsId } = useParams();
 
-  const stateHas = true;
+  const list = useAppSelector((state) => state.checkedCards);
+
+  const { detailsId } = useParams();
 
   if (navigation.state === 'loading') {
     return <Loader />;
@@ -41,7 +43,7 @@ const Result = () => {
 
           <div className={styles['results__container--cards']}>
             <CardList dataCards={loaderData.data.results} />
-            {stateHas && <Dashboard />}
+            {list.length !== 0 && <Dashboard />}
             <Activity mode={loaderData.data.results.length > 1 ? 'visible' : 'hidden'}>
               <Pagination counts={loaderData.counts} />
             </Activity>

@@ -3,6 +3,8 @@ import styles from './CardList.module.css';
 import Card from '@/components/card/Card';
 import CardsService from '@/api/services/cards.service';
 import type { IPeople } from 'swapi-ts';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/redux.hooks';
+import { addCardByList } from '@/features/slicers';
 
 type Props = {
   dataCards: IPeople[];
@@ -10,6 +12,10 @@ type Props = {
 
 const CardList = ({ dataCards }: Props) => {
   const serviceCard = new CardsService();
+  const dispatch = useAppDispatch();
+  const checkedCards = useAppSelector((state) => state.checkedCards);
+
+  const checkedSet = new Set(checkedCards);
 
   return (
     <ul data-testid="list-card" className={styles['list-cards']}>
@@ -19,7 +25,13 @@ const CardList = ({ dataCards }: Props) => {
 
           return (
             <li className={styles['list-item']} key={card.name}>
-              <input className={styles['checkbox-card']} type="checkbox" name="card-check" />
+              <input
+                className={styles['checkbox-card']}
+                checked={checkedSet.has(human)}
+                type="checkbox"
+                name="card-check"
+                onChange={() => dispatch(addCardByList(human))}
+              />
               <Card {...card} />
             </li>
           );
