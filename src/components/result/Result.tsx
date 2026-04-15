@@ -8,11 +8,14 @@ import { AppRoutes } from '@/enums/constans.enum';
 import type { DataLoaderCards } from '@/routes';
 import NotFoundPage from '@/layout/pages/404/404';
 import { Activity } from 'react';
+import Dashboard from '../dashboard/Dashboard';
 
 const Result = () => {
   const loaderData = useRouteLoaderData<DataLoaderCards>(AppRoutes.ID__HOME);
   const navigation = useNavigation();
   const { detailsId } = useParams();
+
+  const stateHas = true;
 
   if (navigation.state === 'loading') {
     return <Loader />;
@@ -38,13 +41,13 @@ const Result = () => {
 
           <div className={styles['results__container--cards']}>
             <CardList dataCards={loaderData.data.results} />
+            {stateHas && <Dashboard />}
             <Activity mode={loaderData.data.results.length > 1 ? 'visible' : 'hidden'}>
               <Pagination counts={loaderData.counts} />
             </Activity>
           </div>
         </div>
       )}
-
       <ErrorBtn />
     </section>
   );

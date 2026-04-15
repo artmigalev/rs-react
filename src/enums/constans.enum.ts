@@ -5,6 +5,4 @@ export enum AppRoutes {
   ID__HOME = 'home-data',
 
   ABOUT = 'about',
-
-
 }

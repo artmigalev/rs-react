@@ -1,0 +1,25 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: var(--accent);
+  border-radius: var(--border-radius);
+
+  align-items: start;
+
+  padding: var(--padding-small);
+  color: var(--primary);
+}
+.title {
+  color: var(--color-default);
+  padding: var(--padding-small);
+}
+
+button {
+  padding: var(--padding-small);
+  border: var(--border-custom);
+  border-radius: var(--border-radius);
+  color: var(--primary);
+  background-color: var(--secondary);
+  cursor: pointer;
+}
