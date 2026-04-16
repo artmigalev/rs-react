@@ -15,7 +15,8 @@
   padding: var(--padding-small);
 }
 
-button {
+button,
+.downloadBtn {
   padding: var(--padding-small);
   border: var(--border-custom);
   border-radius: var(--border-radius);
