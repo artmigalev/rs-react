@@ -8,17 +8,30 @@ html {
 } /* 16px */
 
 @theme {
+  --color-default-light-theme: rgba(255, 255, 255, 0.87);
+  --color-default-dark-theme: #242424;
+
   --padding-small: 0.5rem;
   --gap-default: 0.5rem;
   --color-default: rgba(255, 255, 255, 0.87);
   --border-custom: 1px solid var(--primary);
   --border-radius: 0.5rem;
-  --background: #242424;
   --primary: #639c7f;
+  --background: var(--primary);
   --secondary: #31424e;
   --accent: #454e6e;
   --error: rgb(217, 38, 38);
 }
+
+[data-theme='dark'] {
+  --background: var(--color-default-dark-theme);
+  color: var(--color-default-light-theme);
+}
+[data-theme='light'] {
+  --background: var(--color-default-light-theme);
+  color: var(--color-default-dark-theme);
+}
+
 :root {
   font-family: 'Goldman';
   font-weight: 400;

@@ -1,7 +1,7 @@
 .section-search {
   width: 100%;
   max-width: 400px;
-  background-color: var(--secondary);
+  background-color: var(--background);
   border: var(--border-custom);
   border-color: var(--primary);
   border-radius: var(--border-radius);

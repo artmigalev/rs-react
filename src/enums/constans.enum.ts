@@ -6,3 +6,7 @@ export enum AppRoutes {
 
   ABOUT = 'about',
 }
+export enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
